@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Project: Belajar Kalam 2 - HSI Boarding School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --primary: #4e73df;
+            --secondary: #1cc88a;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --text-dark: #333;
+            --text-light: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --kalam-blue: #3498db;
+            --kalam-purple: #9b59b6;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: #f9f9f9;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        
+        /* Header & Navigation */
+        .jumbotron {
+            background: linear-gradient(135deg, var(--kalam-blue), var(--kalam-purple));
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jumbotron::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .jumbotron .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dark Mode Toggle */
+        .toggle-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .toggle-btn {
+            background: var(--secondary);
+        }
+        
+        /* Project Content */
+        .project-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .dark-mode .project-content {
+            background: #1e1e1e;
+            color: var(--text-light);
+        }
+        
+        .detail-img {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .project-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-mode .project-section {
+            border-bottom: 1px solid #333;
+        }
+        
+        .project-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title {
+            color: var(--secondary);
+        }
+        
+        /* Arabic Text Styling */
+        .arabic-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--kalam-blue);
+            direction: rtl;
+            margin-bottom: 5px;
+            text-align: right;
+            line-height: 1.8;
+        }
+        
+        .dark-mode .arabic-text {
+            color: #6ab7ff;
+        }
+        
+        /* Kalam-specific styles */
+        .kalam-badge {
+            background: linear-gradient(135deg, var(--kalam-blue), var(--kalam-purple));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .kalam-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Conversation Examples */
+        .conversation-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid var(--kalam-blue);
+        }
+        
+        .dark-mode .conversation-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(155, 89, 182, 0.2));
+        }
+        
+        .arabic-conversation {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.1rem;
+            color: var(--kalam-purple);
+            direction: rtl;
+            text-align: right;
+        }
+        
+        /* Grammar Highlight */
+        .grammar-point {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .dark-mode .grammar-point {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        /* Lists */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .custom-list li {
+            margin-bottom: 25px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .custom-list li::before {
+            content: "💬";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-demo {
+            background: var(--kalam-blue);
+            color: white;
+            border: 2px solid var(--kalam-blue);
+        }
+        
+        .btn-demo:hover {
+            background: transparent;
+            color: var(--kalam-blue);
+            transform: translateY(-3px);
+        }
+        
+        .btn-github {
+            background: transparent;
+            color: var(--kalam-purple);
+            border: 2px solid var(--kalam-purple);
+        }
+        
+        .btn-github:hover {
+            background: var(--kalam-purple);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .btn-github {
+            color: var(--kalam-purple);
+            border-color: var(--kalam-purple);
+        }
+        
+        .dark-mode .btn-github:hover {
+            background: var(--kalam-purple);
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 60px;
+        }
+        
+        .dark-mode .footer {
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+        
+        .school-name {
+            color: var(--kalam-blue);
+            font-weight: 600;
+        }
+        
+        .dark-mode .school-name {
+            color: var(--kalam-purple);
+        }
+        
+        /* Back Button */
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: white;
+            color: var(--kalam-blue);
+            transform: translateY(-3px);
+        }
+        
+        /* Cards */
+        .feature-card {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--kalam-blue);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .dark-mode .feature-card {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(155, 89, 182, 0.2));
+        }
+        
+        /* Vocabulary Table */
+        .vocab-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .vocab-table th {
+            background: var(--kalam-blue);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .vocab-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-mode .vocab-table td {
+            border-bottom: 1px solid #333;
+        }
+        
+        .vocab-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .vocab-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 60px 0 40px;
+            }
+            
+            .project-content {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .vocab-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="toggle-btn" id="themeToggle">
+    <i class="fas fa-moon"></i> Dark Mode
+</button>
+
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Belajar Kalam 2: Percakapan Bahasa Arab Lanjutan</h1>
+        <p class="lead fs-4">HSI Boarding School Purworejo - Pengembangan Kemampuan Berbicara</p>
+        <a href="index.html" class="btn btn-back mt-3">
+            <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+        </a>
+    </div>
+</div>
+
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="project-content">
+                <!-- Project Image -->
+                <iframe width="700" height="500" src="https://www.youtube.com/embed/ZWLEyXES5ec?si=xdDyJPGpffdQk2vj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                
+                <!-- Project Summary -->
+                <div class="project-section">
+                    <h2 class="section-title">Ringkasan Belajar Kalam 2</h2>
+                    <p class="lead">
+                        Belajar Kalam 2 adalah program lanjutan untuk mengembangkan kemampuan percakapan bahasa Arab dengan tema-tema yang lebih kompleks dan kontekstual. Program ini fokus pada penguasaan struktur kalimat majemuk, ekspresi idiomatis, dan percakapan situasional dalam berbagai konteks kehidupan sehari-hari.
+                    </p>
+                    <div class="mt-3">
+                        <span class="kalam-badge">Percakapan Harian</span>
+                        <span class="kalam-badge">Tata Bahasa Lanjutan</span>
+                        <span class="kalam-badge">Kosakata Tematik</span>
+                        <span class="kalam-badge">Ekspresi Idiomatis</span>
+                        <span class="kalam-badge">Debat & Presentasi</span>
+                    </div>
+                </div>
+                
+                <!-- About Kalam 2 -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-comments text-warning me-2"></i> Tentang Belajar Kalam 2
+                    </h3>
+                    <p>
+                        Belajar Kalam 2 membangun dari dasar-dasar percakapan yang sudah dipelajari di level sebelumnya. Program ini memperkenalkan tema-tema percakapan yang lebih kompleks seperti diskusi tentang pendidikan, pekerjaan, kesehatan, teknologi, dan isu-isu sosial. Fokus utama adalah membangun kelancaran (fluency) dan keakuratan (accuracy) dalam berbicara.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="kalam-icon">
+                                    <i class="fas fa-comment-dots fa-3x text-primary mb-3"></i>
+                                </div>
+                                <h5>Percakapan Situasional</h5>
+                                <p class="small mb-0">Praktik percakapan dalam berbagai situasi nyata</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-brain fa-3x text-success mb-3"></i>
+                                <h5>Pemikiran Kritis</h5>
+                                <p class="small mb-0">Mengungkapkan pendapat dan argumen dalam bahasa Arab</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-users fa-3x text-warning mb-3"></i>
+                                <h5>Diskusi Kelompok</h5>
+                                <p class="small mb-0">Berpartisipasi aktif dalam diskusi dan debat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Arabic Section -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-language me-2"></i> Belajar Kalam dalam Bahasa Arab – تَعَلُّمُ الكَلامِ
+                    </h3>
+                    
+                    <ul class="custom-list">
+                        <li>
+                            <div class="arabic-text">الكَلامُ الثَّانِي يُرَكِّزُ عَلَى المَواضِيعِ المُعَقَّدَةِ وَالمُناقَشاتِ الجَادَّةِ</div>
+                            <p>Kalam 2 berfokus pada topik-topik kompleks dan diskusi serius.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">نَتَعَلَّمُ كَيْفِيَّةَ التَّعْبِيرِ عَنِ الآراءِ وَالمَشاعِرِ بِطَلاقَةٍ وَدِقَّةٍ</div>
+                            <p>Kita belajar bagaimana mengekspresikan pendapat dan perasaan dengan lancar dan akurat.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">الكَلامُ الجَيِّدُ يَحْتَاجُ إِلَى مُفْرَداتٍ غَنِيَّةٍ وَتَراكِيبَ صَحِيحَةٍ</div>
+                            <p>Percakapan yang baik membutuhkan kosakata yang kaya dan struktur yang benar.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Conversation Examples -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-exchange-alt text-warning me-2"></i> Contoh Percakapan Lanjutan
+                    </h3>
+                    
+                    <div class="conversation-box">
+                        <div class="arabic-conversation">
+                            <strong>أَحْمَدُ:</strong> كَيْفَ تَرَى تَأْثِيرَ التِّكْنُولُوجِيَا عَلَى التَّعْلِيمِ فِي عَصْرِنَا الحَالِي؟
+                        </div>
+                        <p class="mt-2"><strong>Ahmad:</strong> Bagaimana pendapatmu tentang pengaruh teknologi terhadap pendidikan di zaman kita sekarang?</p>
+                    </div>
+                    
+                    <div class="conversation-box">
+                        <div class="arabic-conversation">
+                            <strong>خالِدٌ:</strong> أَعْتَقِدُ أَنَّ التِّكْنُولُوجِيَا قَدْ أَحْدَثَتْ ثَوْرَةً فِي طُرُقِ التَّعْلِيمِ، لَكِنَّهَا تَحْتَاجُ إِلَى اسْتِخْدَامٍ حَكِيمٍ.
+                        </div>
+                        <p class="mt-2"><strong>Khalid:</strong> Saya yakin teknologi telah menciptakan revolusi dalam metode pendidikan, tetapi perlu digunakan dengan bijak.</p>
+                    </div>
+                    
+                    <div class="grammar-point mt-4">
+                        <h6><i class="fas fa-lightbulb text-warning me-2"></i> Poin Tata Bahasa:</h6>
+                        <p class="mb-0">Penggunaan kata kerja mental <strong>"أَعْتَقِدُ"</strong> (saya yakin) untuk menyampaikan pendapat pribadi dalam diskusi formal.</p>
+                    </div>
+                </div>
+                
+                <!-- Vocabulary Section -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-book text-warning me-2"></i> Kosakata Tematik Baru
+                    </h3>
+                    
+                    <table class="vocab-table">
+                        <thead>
+                            <tr>
+                                <th width="40%">الكَلِمَةُ (Kata)</th>
+                                <th width="30%">المَعْنَى (Arti)</th>
+                                <th width="30%">المَجَالُ (Bidang)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="arabic-text">التَّنْمِيَةُ</td>
+                                <td>pembangunan</td>
+                                <td>Ekonomi & Sosial</td>
+                            </tr>
+                            <tr>
+                                <td class="arabic-text">البِيئَةُ</td>
+                                <td>lingkungan</td>
+                                <td>Sains & Lingkungan</td>
+                            </tr>
+                            <tr>
+                                <td class="arabic-text">العَوْلَمَةُ</td>
+                                <td>globalisasi</td>
+                                <td>Politik & Ekonomi</td>
+                            </tr>
+                            <tr>
+                                <td class="arabic-text">التَّوَاصُلُ</td>
+                                <td>komunikasi</td>
+                                <td>Teknologi & Sosial</td>
+                            </tr>
+                            <tr>
+                                <td class="arabic-text">الإِبْداعُ</td>
+                                <td>kreativitas</td>
+                                <td>Pendidikan & Seni</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Learning Topics -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-graduation-cap me-2"></i> Topik Pembelajaran Kalam 2
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="feature-card">
+                                <i class="fas fa-briefcase fa-2x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Dunia Kerja</h5>
+                                <p class="small mb-0">Wawancara kerja, presentasi bisnis, komunikasi profesional</p>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary">Kosakata: 80+</span>
+                                    <span class="badge bg-success">Ekspresi: 25+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card">
+                                <i class="fas fa-heartbeat fa-2x text-danger mb-3"></i>
+                                <h5 class="fw-bold">Kesehatan</h5>
+                                <p class="small mb-0">Konsultasi dokter, gaya hidup sehat, diskusi medis</p>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary">Kosakata: 70+</span>
+                                    <span class="badge bg-success">Ekspresi: 20+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card">
+                                <i class="fas fa-globe-asia fa-2x text-success mb-3"></i>
+                                <h5 class="fw-bold">Isu Global</h5>
+                                <p class="small mb-0">Perubahan iklim, teknologi, hubungan internasional</p>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary">Kosakata: 90+</span>
+                                    <span class="badge bg-success">Ekspresi: 30+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card">
+                                <i class="fas fa-gem fa-2x text-warning mb-3"></i>
+                                <h5 class="fw-bold">Budaya & Seni</h5>
+                                <p class="small mb-0">Diskusi sastra, seni Islam, tradisi dan budaya</p>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary">Kosakata: 60+</span>
+                                    <span class="badge bg-success">Ekspresi: 15+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Learning Outcomes -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-line text-warning me-2"></i> Kemampuan yang Dikembangkan
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-bullhorn text-white fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Presentasi Formal</h5>
+                                    <p class="small mb-0">Mampu menyampaikan presentasi dengan struktur yang jelas dan bahasa yang tepat</p>
+                                    <div class="progress mt-2" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-handshake text-white fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Negosiasi</h5>
+                                    <p class="small mb-0">Kemampuan bernegosiasi dan mencapai kesepakatan dalam bahasa Arab</p>
+                                    <div class="progress mt-2" style="height: 8px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-warning d-inline-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-comments text-white fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Debat Terstruktur</h5>
+                                    <p class="small mb-0">Mampu berdebat dengan argumen logis dan bahasa yang persuasif</p>
+                                    <div class="progress mt-2" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-info d-inline-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-head-side-virus text-white fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Pemikiran Kritis</h5>
+                                    <p class="small mb-0">Menganalisis masalah dan mengungkapkan solusi dalam bahasa Arab</p>
+                                    <div class="progress mt-2" style="height: 8px;">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-demo btn-custom">
+                        <i class="fas fa-headphones"></i> Dengarkan Percakapan
+                    </a>
+                    <a href="#" class="btn btn-github btn-custom">
+                        <i class="fas fa-file-download"></i> Download Materi
+                    </a>
+                    <a href="#" class="btn btn-custom" style="background: var(--secondary); color: white; border-color: var(--secondary);">
+                        <i class="fas fa-microphone-alt"></i> Rekam Percakapan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 <span class="school-name">HSI Boarding School Purworejo</span> | Program Bahasa Arab Lanjutan</p>
+        <p class="mt-2 small">Belajar Kalam 2: Menguasai Seni Berbicara Bahasa Arab untuk Komunikasi Efektif</p>
+    </div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = toggleBtn.querySelector('i');
+    
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+        
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModePreference = localStorage.getItem('darkMode');
+        
+        if (darkModePreference === 'true') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

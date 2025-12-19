@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Project: Ujian Tasmik - HSI Boarding School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --primary: #4e73df;
+            --secondary: #1cc88a;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --text-dark: #333;
+            --text-light: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: #f9f9f9;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        
+        /* Header & Navigation */
+        .jumbotron {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jumbotron::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1580584126903-c17dab3041e6?w=1600&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .jumbotron .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dark Mode Toggle */
+        .toggle-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .toggle-btn {
+            background: var(--secondary);
+        }
+        
+        /* Project Content */
+        .project-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .dark-mode .project-content {
+            background: #1e1e1e;
+            color: var(--text-light);
+        }
+        
+        .detail-img {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .project-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-mode .project-section {
+            border-bottom: 1px solid #333;
+        }
+        
+        .project-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title {
+            color: var(--secondary);
+        }
+        
+        /* Arabic Text Styling */
+        .arabic-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            direction: rtl;
+            margin-bottom: 5px;
+        }
+        
+        .dark-mode .arabic-text {
+            color: #6ab7ff;
+        }
+        
+        /* Lists */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .custom-list li {
+            margin-bottom: 25px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .custom-list li::before {
+            content: "📖";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tasmik-specific styles */
+        .tasmik-list li::before {
+            content: "🕌";
+        }
+        
+        .tasmik-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .tasmik-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-demo {
+            background: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-demo:hover {
+            background: transparent;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .btn-github {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-github:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .btn-github {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .dark-mode .btn-github:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 60px;
+        }
+        
+        .dark-mode .footer {
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+        
+        .school-name {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .dark-mode .school-name {
+            color: var(--secondary);
+        }
+        
+        /* Back Button */
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 60px 0 40px;
+            }
+            
+            .project-content {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="toggle-btn" id="themeToggle">
+    <i class="fas fa-moon"></i> Dark Mode
+</button>
+
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Ujian Tasmik Hafalan Al-Qur'an</h1>
+        <p class="lead fs-4">HSI Boarding School Purworejo</p>
+        <a href="index.html" class="btn btn-back mt-3">
+            <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+        </a>
+    </div>
+</div>
+
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="project-content">
+                <!-- Project Image -->
+                <iframe 
+                     width="800" 
+                     height="500" 
+                     src="irkham tasmi juz 30.mp4" 
+                     title="YouTube video player" 
+                     frameborder="0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                     allowfullscreen>
+                </iframe>
+                
+                <!-- Project Summary -->
+                <div class="project-section">
+                    <h2 class="section-title">Ringkasan Ujian Tasmik</h2>
+                    <p class="lead">
+                        Ujian tasmik adalah proses evaluasi hafalan Al-Qur'an santri dengan metode sima'an (mendengarkan) untuk memastikan hafalan yang mutqin (kuat) dan sesuai dengan kaidah tajwid. Ujian ini menjadi penentu kelayakan seorang santri untuk melanjutkan hafalan ke juz berikutnya atau menyelesaikan hafalan 30 juz.
+                    </p>
+                    <div class="mt-3">
+                        <span class="tasmik-badge">Juz 1-30</span>
+                        <span class="tasmik-badge">Tajwid & Makhraj</span>
+                        <span class="tasmik-badge">Kelancaran Hafalan</span>
+                        <span class="tasmik-badge">Ketepatan Harakat</span>
+                    </div>
+                </div>
+                
+                <!-- About Tasmik -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart text-warning me-2"></i> Makna dan Pentingnya Tasmik
+                    </h3>
+                    <p>
+                        Tasmik berasal dari kata "samia" yang berarti mendengarkan. Dalam konteks tahfizh Al-Qur'an, tasmik adalah proses seorang ustadz/ustadzah mendengarkan bacaan hafalan santri untuk mengevaluasi kesalahan dan memberikan koreksi. Proses ini sangat penting untuk menjaga kualitas hafalan dan mencegah terjadinya kesalahan yang berulang.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="tasmik-icon">
+                                    <i class="fas fa-quran fa-3x text-primary mb-3"></i>
+                                </div>
+                                <h5>Pemantapan Hafalan</h5>
+                                <p class="small">Memastikan hafalan kuat dan sesuai dengan kaidah tajwid</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-microphone-alt fa-3x text-success mb-3"></i>
+                                <h5>Evaluasi Berkala</h5>
+                                <p class="small">Penilaian rutin untuk mengukur perkembangan hafalan santri</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-award fa-3x text-warning mb-3"></i>
+                                <h5>Sertifikasi Hafalan</h5>
+                                <p class="small">Penilaian akhir untuk menentukan kelayakan santri</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Arabic Section -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-language me-2"></i> Ujian Tasmik dalam Bahasa Arab – إخْتِبارُ التَّسْمِيعِ
+                    </h3>
+                    
+                    <ul class="custom-list tasmik-list">
+                        <li>
+                            <div class="arabic-text">التَّسْمِيعُ هُوَ اِخْتِبارُ الحِفْظِ بِطَرِيقَةِ السَّماعِ</div>
+                            <p>Tasmik adalah ujian hafalan dengan metode mendengarkan.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">يُقَوِّمُ التَّسْمِيعُ دِقَّةَ الحِفْظِ وَصِحَّةَ القِراءَةِ</div>
+                            <p>Tasmik mengevaluasi ketepatan hafalan dan kebenaran bacaan.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">مِنْ خِلالِ التَّسْمِيعِ نَتَأَكَّدُ مِنْ مُطابَقَةِ الحِفْظِ لِلأَصْلِ</div>
+                            <p>Melalui tasmik kita memastikan kesesuaian hafalan dengan mushaf.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Tasmik Process -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-list-ol text-warning me-2"></i> Prosedur Ujian Tasmik
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">1</span>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Pendaftaran</h5>
+                                    <p class="small mb-0">Santri mendaftarkan diri untuk ujian tasmik dengan menyebutkan juz yang akan diujikan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">2</span>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Sima'an</h5>
+                                    <p class="small mb-0">Santri membacakan hafalan di depan penguji tanpa melihat mushaf</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-warning d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">3</span>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Koreksi</h5>
+                                    <p class="small mb-0">Penguji memberikan koreksi untuk setiap kesalahan tajwid atau hafalan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="rounded-circle bg-info d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <span class="text-white fw-bold">4</span>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold">Penilaian</h5>
+                                    <p class="small mb-0">Penguji memberikan nilai berdasarkan kelancaran, ketepatan, dan tajwid</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results and Achievements -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-trophy text-warning me-2"></i> Kriteria Penilaian Tasmik
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Kelancaran (Fluency)</h6>
+                                    <p class="small mb-0">Tidak tersendat-sendat dalam membaca hafalan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Ketepatan (Accuracy)</h6>
+                                    <p class="small mb-0">Sesuai dengan mushaf Utsmani tanpa tambahan atau pengurangan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Tajwid (Pronunciation)</h6>
+                                    <p class="small mb-0">Mengikuti kaidah tajwid dengan benar (makhraj, sifat huruf, dll)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Waqaf & Ibtida' (Stopping & Starting)</h6>
+                                    <p class="small mb-0">Berhenti dan memulai bacaan pada tempat yang tepat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-star text-white fa-2x"></i>
+                                </div>
+                                <h5>Skor Minimal: 85%</h5>
+                                <p class="small">Nilai minimal untuk dinyatakan lulus ujian tasmik</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-clock text-white fa-2x"></i>
+                                </div>
+                                <h5>Waktu Ujian: 30 menit</h5>
+                                <p class="small">Durasi rata-rata untuk ujian tasmik per juz</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-warning d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-user-check text-white fa-2x"></i>
+                                </div>
+                                <h5>2 Penguji</h5>
+                                <p class="small">Jumlah minimal penguji untuk ujian tasmik resmi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-demo btn-custom">
+                        <i class="fas fa-video"></i> Simulasi Tasmik
+                    </a>
+                    <a href="#" class="btn btn-github btn-custom">
+                        <i class="fas fa-file-pdf"></i> Download Panduan Tasmik
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 <span class="school-name">HSI Boarding School Purworejo</span> | Program Tahfizh Al-Qur'an</p>
+        <p class="mt-2 small">Ujian Tasmik Hafalan Al-Qur'an - Menjaga Kemurnian dan Kualitas Hafalan</p>
+    </div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = toggleBtn.querySelector('i');
+    
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+        
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModePreference = localStorage.getItem('darkMode');
+        
+        if (darkModePreference === 'true') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Harian Santri - Muhammad Irkham Fajri</title>
+    
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link ke style utama -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Hero Section dengan Parallax */
+        .schedule-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .schedule-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600') center/cover fixed;
+            opacity: 0.15;
+            animation: parallax 20s linear infinite;
+        }
+        
+        @keyframes parallax {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        .schedule-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .schedule-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.7)); }
+        }
+        
+        .schedule-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        /* Floating Animation untuk Card */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        .schedule-container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .schedule-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.05));
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .schedule-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Table dengan Animasi Baris */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .schedule-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .schedule-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .schedule-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+        }
+        
+        .schedule-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            vertical-align: top;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-table tr {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        .schedule-table tr:nth-child(1) { animation-delay: 0.1s; }
+        .schedule-table tr:nth-child(2) { animation-delay: 0.2s; }
+        .schedule-table tr:nth-child(3) { animation-delay: 0.3s; }
+        .schedule-table tr:nth-child(4) { animation-delay: 0.4s; }
+        .schedule-table tr:nth-child(5) { animation-delay: 0.5s; }
+        .schedule-table tr:nth-child(6) { animation-delay: 0.6s; }
+        .schedule-table tr:nth-child(7) { animation-delay: 0.7s; }
+        .schedule-table tr:nth-child(8) { animation-delay: 0.8s; }
+        .schedule-table tr:nth-child(9) { animation-delay: 0.9s; }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .schedule-table tr:hover td {
+            background: rgba(124, 58, 237, 0.1);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .time-cell {
+            font-weight: 700;
+            color: var(--accent-color);
+            white-space: nowrap;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .time-cell::before {
+            content: '🕒';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .activity-cell {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .description-cell {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        /* Info Cards dengan Hover Effects */
+        .schedule-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .info-item {
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.1), rgba(0, 0, 0, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+            border-color: var(--primary-color);
+        }
+        
+        .info-item i {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .info-item h3 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .info-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+        
+        /* Back Button */
+        .back-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.6);
+            padding-right: 45px;
+        }
+        
+        .back-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .schedule-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .schedule-card {
+                padding: 25px;
+                animation: float 8s ease-in-out infinite;
+            }
+            
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .schedule-table td {
+                min-width: 150px;
+            }
+            
+            .schedule-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .schedule-hero {
+                padding: 100px 0 60px;
+            }
+            
+            .schedule-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Hero Section -->
+    <section class="schedule-hero" data-aos="fade-down" data-aos-duration="1000">
+        <div class="schedule-hero-content">
+            <h1 data-aos="zoom-in" data-aos-delay="300">📅 Jadwal Harian Santri</h1>
+            <p data-aos="fade-up" data-aos-delay="500">
+                Disiplin waktu adalah kunci kesuksesan. Berikut adalah jadwal aktivitas harian saya 
+                sebagai santri HSI Boarding School Purworejo.
+            </p>
+            <div class="back-btn-container" data-aos="fade-up" data-aos-delay="700">
+                <a href="index.html" class="back-btn magnetic-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i> Scroll untuk melihat jadwal
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Content -->
+    <div class="schedule-container">
+        <div class="schedule-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="schedule-header" data-aos="fade-right">
+                <h2 style="color: var(--primary-color); margin-bottom: 10px;">
+                    <i class="fas fa-calendar-alt me-2"></i>Rutinitas Sehari-hari
+                </h2>
+                <p style="color: var(--text-light); margin-bottom: 30px;">
+                    Jadwal ini mencakup aktivitas dari bangun tidur hingga istirahat malam
+                </p>
+            </div>
+
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th width="20%">Waktu</th>
+                        <th width="30%">Aktivitas</th>
+                        <th width="50%">Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-aos="fade-left" data-aos-delay="100">
+                        <td class="time-cell">03:30 - 04:00</td>
+                        <td class="activity-cell">Bangun & Qiyamul Lail</td>
+                        <td class="description-cell">Bangun tidur, wudhu, shalat tahajud, dan dzikir pagi</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="150">
+                        <td class="time-cell">04:00 - 05:00</td>
+                        <td class="activity-cell">Shalat Subuh Berjamaah</td>
+                        <td class="description-cell">Shalat subuh di masjid, dilanjutkan dengan dzikir dan tilawah Quran</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="200">
+                        <td class="time-cell">05:00 - 07:00</td>
+                        <td class="activity-cell">Muroja'ah & Tahfizh</td>
+                        <td class="description-cell">Mengulang hafalan sebelumnya dan menambah hafalan baru</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="250">
+                        <td class="time-cell">07:00 - 08:00</td>
+                        <td class="activity-cell">Sarapan & Persiapan</td>
+                        <td class="description-cell">Makan pagi, mandi, dan mempersiapkan diri untuk belajar</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="300">
+                        <td class="time-cell">08:00 - 12:00</td>
+                        <td class="activity-cell">Kelas Bahasa Arab</td>
+                        <td class="description-cell">Belajar nahwu, sharaf, muhadatsah, dan imla'</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="350">
+                        <td class="time-cell">12:00 - 13:30</td>
+                        <td class="activity-cell">Shalat Dzuhur & Istirahat</td>
+                        <td class="description-cell">Shalat dzuhur berjamaah, makan siang, dan istirahat sejenak</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="400">
+                        <td class="time-cell">13:30 - 16:00</td>
+                        <td class="activity-cell">Kelas IT & Programming</td>
+                        <td class="description-cell">Belajar web development, UI/UX design, dan project development</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="450">
+                        <td class="time-cell">16:00 - 17:30</td>
+                        <td class="activity-cell">Shalat Ashar & Olahraga</td>
+                        <td class="description-cell">Shalat ashar berjamaah dan aktivitas fisik untuk kesehatan</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="500">
+                        <td class="time-cell">17:30 - 19:00</td>
+                        <td class="activity-cell">Makan Malam & Persiapan Maghrib</td>
+                        <td class="description-cell">Makan malam, mandi, dan persiapan shalat maghrib</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="550">
+                        <td class="time-cell">19:00 - 20:30</td>
+                        <td class="activity-cell">Kelas Malam & Kajian</td>
+                        <td class="description-cell">Kajian kitab, diskusi agama, dan mentoring</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="600">
+                        <td class="time-cell">20:30 - 21:30</td>
+                        <td class="activity-cell">Belajar Mandiri & Project</td>
+                        <td class="description-cell">Mengerjakan project IT, review pelajaran, dan persiapan besok</td>
+                    </tr>
+                    <tr data-aos="fade-left" data-aos-delay="650">
+                        <td class="time-cell">21:30 - 22:00</td>
+                        <td class="activity-cell">Shalat Isya & Persiapan Tidur</td>
+                        <td class="description-cell">Shalat isya berjamaah, witir, dan tidur awal untuk istirahat</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Info Stats -->
+            <div class="schedule-info">
+                <div class="info-item" data-aos="flip-up" data-aos-delay="700">
+                    <i class="fas fa-clock"></i>
+                    <h3>Total Jam Belajar</h3>
+                    <p>8+ Jam/Hari</p>
+                </div>
+                
+                <div class="info-item" data-aos="flip-up" data-aos-delay="750">
+                    <i class="fas fa-quran"></i>
+                    <h3>Tahfizh Quran</h3>
+                    <p>2-3 Jam/Hari</p>
+                </div>
+                
+                <div class="info-item" data-aos="flip-up" data-aos-delay="800">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Koding & Design</h3>
+                    <p>4-5 Jam/Hari</p>
+                </div>
+                
+                <div class="info-item" data-aos="flip-up" data-aos-delay="850">
+                    <i class="fas fa-pray"></i>
+                    <h3>Ibadah Wajib</h5>
+                    <p>5 Waktu Berjamaah</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-btn-container" data-aos="fade-up" data-aos-delay="900">
+            <a href="index.html" class="back-btn magnetic-btn">
+                <i class="fas fa-home"></i> Kembali ke Portfolio
+            </a>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS
+        AOS.init({
+            duration: 800,
+            once: false,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+    </script>
+    
+    <!-- Link ke script utama -->
+    <script src="script.js"></script>
+</body>
+</html>

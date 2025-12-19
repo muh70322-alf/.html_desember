@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Project 1: Belajar IT - HSI Boarding School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --primary: #4e73df;
+            --secondary: #1cc88a;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --text-dark: #333;
+            --text-light: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: #f9f9f9;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        
+        /* Header & Navigation */
+        .jumbotron {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jumbotron::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .jumbotron .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dark Mode Toggle */
+        .toggle-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .toggle-btn {
+            background: var(--secondary);
+        }
+        
+        /* Project Content */
+        .project-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .dark-mode .project-content {
+            background: #1e1e1e;
+            color: var(--text-light);
+        }
+        
+        .detail-img {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .project-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-mode .project-section {
+            border-bottom: 1px solid #333;
+        }
+        
+        .project-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title {
+            color: var(--secondary);
+        }
+        
+        /* Arabic Text Styling */
+        .arabic-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            direction: rtl;
+            margin-bottom: 5px;
+        }
+        
+        .dark-mode .arabic-text {
+            color: #6ab7ff;
+        }
+        
+        /* Lists */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .custom-list li {
+            margin-bottom: 25px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .custom-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-demo {
+            background: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-demo:hover {
+            background: transparent;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .btn-github {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-github:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .btn-github {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .dark-mode .btn-github:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 60px;
+        }
+        
+        .dark-mode .footer {
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+        
+        .school-name {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .dark-mode .school-name {
+            color: var(--secondary);
+        }
+        
+        /* Back Button */
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 60px 0 40px;
+            }
+            
+            .project-content {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="toggle-btn" id="themeToggle">
+    <i class="fas fa-moon"></i> Dark Mode
+</button>
+
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Project 1: Belajar IT</h1>
+        <p class="lead fs-4">Sekolah HSI Boarding School Purworejo</p>
+        <a href="index.html" class="btn btn-back mt-3">
+            <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+        </a>
+    </div>
+</div>
+
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="project-content">
+                <!-- Project Image -->
+                <img src="IT.jpeg" 
+                     class="img-fluid rounded-4 shadow-lg detail-img" 
+                     alt="Belajar IT Project" />
+                
+                <!-- Project Summary -->
+                <div class="project-section">
+                    <h2 class="section-title">Ringkasan Proyek</h2>
+                    <p class="lead">
+                        Proyek pembelajaran IT ini memberikan dasar-dasar penting dalam teknologi informasi, dari konsep dasar komputer hingga pengembangan aplikasi sederhana. Dilaksanakan di HSI Boarding School Purworejo, proyek ini bertujuan membekali santri dengan keterampilan teknologi yang relevan di era digital.
+                    </p>
+                </div>
+                
+                <!-- About Learning IT -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart text-warning me-2"></i> Kata-kata Tentang Belajar IT
+                    </h3>
+                    <p>
+                        Belajar IT membuka banyak peluang dan wawasan baru di dunia teknologi. Dari memahami cara kerja komputer hingga membuat aplikasi sederhana, setiap langkah membawa kita lebih dekat pada keterampilan yang bermanfaat untuk masa depan. Proses ini memang penuh tantangan, namun juga menghadirkan rasa puas ketika berhasil memahami sesuatu yang baru.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded" style="background: rgba(78, 115, 223, 0.1);">
+                                <h5 class="fw-bold"><i class="fas fa-lightbulb text-primary me-2"></i> Manfaat Belajar IT</h5>
+                                <p class="mb-0">Mengembangkan pola pikir logis dan sistematis yang berguna dalam berbagai aspek kehidupan.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded mt-3 mt-md-0" style="background: rgba(28, 200, 138, 0.1);">
+                                <h5 class="fw-bold"><i class="fas fa-rocket text-success me-2"></i> Peluang Masa Depan</h5>
+                                <p class="mb-0">Membuka jalan karir di berbagai bidang teknologi yang terus berkembang pesat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Arabic Section -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-language me-2"></i> Belajar IT – تَعَلُّمُ تِقْنِيَّةِ المَعْلُومَاتِ
+                    </h3>
+                    
+                    <ul class="custom-list">
+                        <li>
+                            <div class="arabic-text">تَعَلُّمُ الـ IT يُوَسِّعُ مَعْرِفَتَنَا بِالعَالَمِ الرَّقْمِيِّ</div>
+                            <p>Belajar IT memperluas pengetahuan kita tentang dunia digital.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">مَعَ كُلِّ مَشْرُوعٍ نَتَعَلَّمُ مَهَارَاتٍ جَدِيدَةً فِي التِّقْنِيَةِ</div>
+                            <p>Dengan setiap proyek, kita belajar keterampilan baru dalam teknologi.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">العَمَلُ فِي مَجَالِ الـ IT يَحْتَاجُ صَبْرًا وَإِبْدَاعًا</div>
+                            <p>Belajar IT membutuhkan kesabaran dan kreativitas.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Results and Achievements -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-trophy text-warning me-2"></i> Hasil dan Pencapaian
+                    </h3>
+                    <p>
+                        Setelah mempelajari dasar-dasar IT, saya merasa lebih memahami cara kerja teknologi dan bagaimana membuat sesuatu secara mandiri. Proses ini membantu saya mengembangkan keterampilan problem-solving, kreativitas, dan logika. Belajar IT membuat saya lebih percaya diri untuk menghadapi tugas-tugas teknologi lainnya di masa depan.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-cogs text-white fa-2x"></i>
+                                </div>
+                                <h5>Problem Solving</h5>
+                                <p class="small">Kemampuan menyelesaikan masalah teknis secara sistematis</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-lightbulb text-white fa-2x"></i>
+                                </div>
+                                <h5>Kreativitas</h5>
+                                <p class="small">Mengembangkan solusi kreatif untuk tantangan teknologi</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="rounded-circle bg-warning d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                                    <i class="fas fa-brain text-white fa-2x"></i>
+                                </div>
+                                <h5>Logika Komputasi</h5>
+                                <p class="small">Pemahaman pola pikir algoritmik dan logika pemrograman</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-demo btn-custom">
+                        <i class="fas fa-external-link-alt"></i> Lihat Demo Live
+                    </a>
+                    <a href="#" class="btn btn-github btn-custom">
+                        <i class="fab fa-github"></i> Kunjungi Repo GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 <span class="school-name">HSI Boarding School</span> | Santri Web Development Class</p>
+        <p class="mt-2 small">Project 1: Belajar IT - Teknologi Informasi untuk Masa Depan</p>
+    </div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = toggleBtn.querySelector('i');
+    
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+        
+        // Simpan preferensi tema di localStorage
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+    
+    // Cek preferensi tema yang disimpan
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModePreference = localStorage.getItem('darkMode');
+        
+        if (darkModePreference === 'true') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

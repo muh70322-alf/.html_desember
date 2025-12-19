@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Project 2: Membaca Cerita Bahasa Arab - HSI Boarding School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --primary: #4e73df;
+            --secondary: #1cc88a;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --text-dark: #333;
+            --text-light: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: #f9f9f9;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        
+        /* Header & Navigation */
+        .jumbotron {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jumbotron::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .jumbotron .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dark Mode Toggle */
+        .toggle-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .toggle-btn {
+            background: var(--secondary);
+        }
+        
+        /* Project Content */
+        .project-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .dark-mode .project-content {
+            background: #1e1e1e;
+            color: var(--text-light);
+        }
+        
+        .detail-img {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .project-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dark-mode .project-section {
+            border-bottom: 1px solid #333;
+        }
+        
+        .project-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title {
+            color: var(--secondary);
+        }
+        
+        /* Arabic Text Styling */
+        .arabic-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            direction: rtl;
+            margin-bottom: 5px;
+        }
+        
+        .dark-mode .arabic-text {
+            color: #6ab7ff;
+        }
+        
+        /* Lists */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .custom-list li {
+            margin-bottom: 25px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .custom-list li::before {
+            content: "📖";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-demo {
+            background: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-demo:hover {
+            background: transparent;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .btn-github {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-github:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode .btn-github {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .dark-mode .btn-github:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 60px;
+        }
+        
+        .dark-mode .footer {
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+        
+        .school-name {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .dark-mode .school-name {
+            color: var(--secondary);
+        }
+        
+        /* Back Button */
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Reading Book Animation */
+        .book-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 60px 0 40px;
+            }
+            
+            .project-content {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="toggle-btn" id="themeToggle">
+    <i class="fas fa-moon"></i> Dark Mode
+</button>
+
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Project 2: Membaca Cerita Bahasa Arab</h1>
+        <p class="lead fs-4">Sekolah HSI Boarding School Purworejo</p>
+        <a href="index.html" class="btn btn-back mt-3">
+            <i class="fas fa-arrow-left"></i> Kembali ke Portfolio
+        </a>
+    </div>
+</div>
+
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="project-content">
+                <iframe 
+                     width="700" 
+                     height="500" 
+                     src="MEMBACA TEKS ARAB.mp4" 
+                     title="YouTube video player" 
+                     frameborder="0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                     allowfullscreen>
+                 </iframe>
+                
+                <!-- Project Summary -->
+                <div class="project-section">
+                    <h2 class="section-title">Ringkasan Proyek</h2>
+                    <p class="lead">
+                        Proyek membaca cerita bahasa Arab ini dirancang untuk meningkatkan kemampuan membaca dan memahami teks Arab secara natural. Melalui berbagai jenis cerita yang menarik, santri diajak untuk mengembangkan kosakata, memahami struktur kalimat, dan menikmati keindahan sastra Arab.
+                    </p>
+                </div>
+                
+                <!-- About Reading Arabic Stories -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart text-warning me-2"></i> Kata-kata Tentang Membaca Cerita Bahasa Arab
+                    </h3>
+                    <p>
+                        Membaca cerita bahasa Arab adalah salah satu cara terbaik untuk memperkaya kosakata dan memahami struktur kalimat secara alami. Setiap cerita membawa kita ke suasana baru sekaligus melatih kemampuan membaca dengan lebih lancar. Dari kisah yang sederhana sampai yang penuh hikmah, semuanya membantu kita semakin dekat dengan bahasa Arab.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="book-icon">
+                                    <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
+                                </div>
+                                <h5>Kosakata Kaya</h5>
+                                <p class="small">Mempelajari kata-kata baru dalam konteks yang menarik</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-brain fa-3x text-success mb-3"></i>
+                                <h5>Pemahaman Mendalam</h5>
+                                <p class="small">Memahami struktur kalimat dan makna secara alami</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-comments fa-3x text-warning mb-3"></i>
+                                <h5>Ekspresi Diri</h5>
+                                <p class="small">Mengembangkan kemampuan mengekspresikan ide dalam bahasa Arab</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Arabic Section -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-language me-2"></i> Membaca Cerita Bahasa Arab – قِراءَةُ القِصَصِ العَرَبِيَّةِ
+                    </h3>
+                    
+                    <ul class="custom-list">
+                        <li>
+                            <div class="arabic-text">قِراءَةُ القِصَصِ العَرَبِيَّةِ تُنَمِّي مَهارَةَ الفَهْمِ</div>
+                            <p>Membaca cerita Arab menumbuhkan kemampuan memahami.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">مَعَ كُلِّ قِصَّةٍ نَتَعَلَّمُ كَلِماتٍ جَدِيدَةً وَعِبَرًا نَافِعَةً</div>
+                            <p>Dengan setiap cerita, kita belajar kosakata baru dan hikmah yang bermanfaat.</p>
+                        </li>
+                        <li>
+                            <div class="arabic-text">القِراءَةُ تُساعِدُنَا عَلى تَحْسِينِ اللُّغَةِ وَتَوَسُّعِ المَعْرِفَةِ</div>
+                            <p>Membaca membantu kita memperbaiki bahasa dan memperluas pengetahuan.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Results and Achievements -->
+                <div class="project-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-trophy text-warning me-2"></i> Hasil dan Pencapaian
+                    </h3>
+                    <p>
+                        Setelah membaca cerita bahasa Arab, saya merasa kemampuan memahami teks semakin meningkat. Saya mulai mengenali banyak mufradat baru dan lebih cepat memahami makna kalimat. Kegiatan ini membuat saya lebih terlatih, lebih percaya diri, dan tertarik untuk terus membaca cerita-cerita Arab lainnya.
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Peningkatan Kosakata</h6>
+                                    <p class="small mb-0">Menguasai 50+ kosakata baru dalam konteks cerita</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Kecepatan Membaca</h6>
+                                    <p class="small mb-0">Meningkatkan kecepatan membaca teks Arab sebesar 40%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Pemahaman Konteks</h6>
+                                    <p class="small mb-0">Mampu memahami makna cerita secara keseluruhan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6>Motivasi Belajar</h6>
+                                    <p class="small mb-0">Semangat belajar bahasa Arab meningkat secara signifikan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-demo btn-custom">
+                        <i class="fas fa-external-link-alt"></i> Lihat Demo Live
+                    </a>
+                    <a href="#" class="btn btn-github btn-custom">
+                        <i class="fab fa-github"></i> Kunjungi Repo GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 <span class="school-name">HSI Boarding School</span> | Santri Web Development Class</p>
+        <p class="mt-2 small">Project 2: Membaca Cerita Bahasa Arab - Mengasah Kemampuan Membaca</p>
+    </div>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = toggleBtn.querySelector('i');
+    
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        }
+        
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModePreference = localStorage.getItem('darkMode');
+        
+        if (darkModePreference === 'true') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
